@@ -1,0 +1,1597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NMTA - New Market Trader's Association</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Add in head section -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bootstrap-4/bootstrap-4.css" rel="stylesheet">
+
+    
+    
+    <style>
+       /* Custom CSS for NMTA Website */
+:root {
+    --primary-color: #2A5C82;    /* Professional blue */
+    --secondary-color: #4CAF50;  /* Fresh green */
+    --accent-color: #FFC107;     /* Golden yellow */
+    --dark-color: #2d2d2d;
+    --light-color: #f8f9fa;
+}
+
+/* Typography */
+body {
+    font-family: 'Poppins', sans-serif;
+    color: var(--dark-color);
+    line-height: 1.7;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+/* Navbar Enhancements */
+.navbar {
+    background: var(--primary-color) !important;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+    padding: 1rem 0;
+}
+
+.navbar-brand {
+    font-weight: 700;
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+}
+
+.nav-link {
+    color: rgba(255,255,255,0.9) !important;
+    font-weight: 500;
+    margin: 0 1rem;
+    position: relative;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    background: var(--accent-color);
+    bottom: 0;
+    left: 0;
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+/* Header Carousel Enhancements */
+.carousel-item {
+    height: 80vh;
+    position: relative;
+}
+
+.carousel-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6));
+}
+
+.carousel-caption {
+    bottom: 30%;
+    z-index: 2;
+}
+
+.carousel-caption h1 {
+    font-size: 3.5rem;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.6);
+    animation: slideUp 1s ease;
+}
+
+@keyframes slideUp {
+    from { transform: translateY(100px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* Section Styling */
+.section-padding {
+    padding: 6rem 0;
+}
+
+.section-header {
+    margin-bottom: 4rem;
+    text-align: center;
+}
+
+.section-header h2 {
+    font-size: 2.5rem;
+    position: relative;
+    display: inline-block;
+    padding-bottom: 1rem;
+}
+
+.section-header h2::after {
+    content: '';
+    position: absolute;
+    width: 50px;
+    height: 3px;
+    background: var(--secondary-color);
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* About Section */
+.about-content {
+    background: rgba(var(--primary-color), 0.05);
+    padding: 3rem;
+    border-radius: 15px;
+    border-left: 4px solid var(--secondary-color);
+    box-shadow: 0 5px 25px rgba(0,0,0,0.08);
+}
+
+/* Gallery Section */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.gallery-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+}
+
+.gallery-item img {
+    height: 250px;
+    object-fit: cover;
+    width: 100%;
+}
+
+.gallery-item:hover {
+    transform: translateY(-5px);
+}
+
+.gallery-item::after {
+    content: "View \f002";
+    font-family: "Font Awesome 5 Free";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 1.2rem;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.gallery-item:hover::after {
+    opacity: 1;
+}
+
+/* Member Cards */
+.member-card {
+    border: none;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+.member-card:hover {
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    transform: translateY(-10px);
+}
+
+.member-card img {
+    height: 250px;
+    object-fit: cover;
+}
+
+.member-social {
+    position: absolute;
+    bottom: -40px;
+    left: 0;
+    right: 0;
+    background: rgba(var(--primary-color), 0.9);
+    padding: 1rem;
+    transition: all 0.3s ease;
+    opacity: 0;
+}
+
+.member-card:hover .member-social {
+    bottom: 0;
+    opacity: 1;
+}
+
+/* Testimonials */
+.testimonial-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    position: relative;
+    border: 1px solid rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+.testimonial-card:hover {
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    transform: translateY(-5px);
+}
+
+.testimonial-card::before {
+    content: "\f10d";
+    font-family: "Font Awesome 5 Free";
+    position: absolute;
+    top: -20px;
+    left: 20px;
+    font-size: 3rem;
+    color: var(--secondary-color);
+    opacity: 0.3;
+}
+
+/* Registration Form */
+.registration-form {
+    background: white;
+    padding: 3rem;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.form-control {
+    border: 2px solid #e9ecef;
+    padding: 1rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(var(--primary-color), 0.1);
+}
+
+.btn-primary {
+    background: var(--primary-color);
+    border: none;
+    padding: 1rem 2rem;
+    font-weight: 600;
+    letter-spacing: 0.8px;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background: var(--secondary-color);
+    transform: translateY(-2px);
+}
+
+/* Footer Enhancements */
+footer {
+    background: var(--dark-color);
+    color: white;
+    position: relative;
+}
+
+.footer-links a {
+    color: rgba(255,255,255,0.8);
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: var(--accent-color);
+    padding-left: 5px;
+}
+
+.social-icons a {
+    width: 40px;
+    height: 40px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 5px;
+    transition: all 0.3s ease;
+}
+
+.social-icons a:hover {
+    background: var(--accent-color);
+    transform: translateY(-3px);
+}
+
+/* Scroll Animation */
+.reveal {
+    transform: translateY(30px);
+    opacity: 0;
+    transition: all 0.8s ease;
+}
+
+.reveal.active {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+/* Back to Top Button */
+.back-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: var(--primary-color);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    opacity: 0;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    z-index: 999;
+}
+
+.back-to-top.show {
+    opacity: 1;
+}
+
+.about-content h3 {
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 0.5rem;
+    margin-bottom: 2rem;
+}
+
+.highlight-box {
+    background: linear-gradient(135deg, var(--primary-color), #1a4766);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+}
+
+.responsibility-pillars .col-md-4 {
+    transition: transform 0.3s ease;
+}
+
+.responsibility-pillars .col-md-4:hover {
+    transform: translateY(-5px);
+}
+
+.blockquote {
+    position: relative;
+    padding: 2rem;
+    background: rgba(var(--primary-color), 0.05);
+    border-radius: 8px;
+}
+
+.blockquote::before {
+    content: "\201C";
+    font-family: "Times New Roman", serif;
+    font-size: 4rem;
+    position: absolute;
+    left: 1rem;
+    top: 0;
+    color: var(--primary-color);
+    opacity: 0.3;
+}
+
+.cta-box {
+    border-top: 3px solid var(--primary-color);
+}
+/* Testimonials */
+.testimonial-card {
+    background: white;
+    border: 1px solid rgba(0,0,0,0.05);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    height: 100%;
+}
+
+.testimonial-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid var(--primary-color);
+    padding: 3px;
+}
+
+.testimonial-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.testimonial-text {
+    position: relative;
+    padding-left: 30px;
+    font-style: italic;
+    color: #555;
+}
+
+.testimonial-text::before {
+    content: "\201C";
+    font-family: "Times New Roman", serif;
+    font-size: 4rem;
+    position: absolute;
+    left: -25px;
+    top: -15px;
+    color: var(--primary-color);
+    opacity: 0.3;
+}
+
+.rating {
+    font-size: 0.9em;
+}
+
+.company-logo {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+}
+
+.testimonial-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.08);
+    border-color: rgba(var(--primary-color), 0.2);
+}
+
+.hover-shadow {
+    box-shadow: 0 5px 15px rgba(0,0,0,0.06);
+}
+
+.testimonial-grid {
+    position: relative;
+    z-index: 1;
+}
+
+
+/* Gallery Styles */
+.gallery-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 250px; /* Fixed height for consistency */
+    object-fit: cover; /* Ensures images fill container */
+    transition: transform 0.3s ease;
+}
+
+/* Responsive Image Heights */
+@media (max-width: 768px) {
+    .gallery-item img {
+        height: 200px;
+    }
+}
+
+@media (max-width: 576px) {
+    .gallery-item img {
+        height: 150px;
+    }
+}
+
+/* Add this CSS */
+.image-modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    padding-top: 50px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.9);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.modal-content {
+    margin: auto;
+    display: block;
+    width: auto;
+    max-width: 90%;
+    max-height: 80vh;
+    cursor: default;
+    transform: scale(0.8);
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.image-modal.active {
+    display: block;
+}
+
+.image-modal.active .modal-content {
+    transform: scale(1);
+    opacity: 1;
+}
+
+/* Members Section Styling */
+.member-card {
+    border: none;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    background: white;
+}
+
+.member-img {
+    height: 250px;
+    width: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.member-header {
+    overflow: hidden;
+}
+
+.member-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    opacity: 0;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.whatsapp-link {
+    background: #25D366;
+    color: white !important;
+    padding: 8px 20px;
+    border-radius: 25px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.whatsapp-link:hover {
+    background: #128C7E;
+    transform: translateY(-2px);
+}
+
+.member-card:hover .member-overlay {
+    opacity: 1;
+}
+
+.member-card:hover .member-img {
+    transform: scale(1.05);
+}
+
+.hover-shadow {
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+}
+
+.member-card:hover {
+    box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+    transform: translateY(-5px);
+}
+
+.member-details {
+    border-top: 1px solid #eee;
+    padding-top: 1rem;
+    margin-top: 1rem;
+}
+
+/* Executive Board Styles */
+
+/* Executive Grid Layout */
+.executive-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.executive-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+}
+
+.executive-column {
+    position: relative;
+}
+
+.executive-card {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    height: 100%;
+}
+
+.executive-image {
+    height: 350px;
+    position: relative;
+    overflow: hidden;
+}
+
+.executive-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(20%);
+    transition: all 0.4s ease;
+}
+
+.role-badge {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(42, 92, 130, 0.9);
+    color: white;
+    padding: 8px 25px;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.executive-details {
+    padding: 25px;
+    text-align: center;
+    background: linear-gradient(to bottom, #ffffff 80%, #f8f9fa);
+}
+
+.executive-details h3 {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+    color: #2A5C82;
+}
+
+.position {
+    color: #6c757d;
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+}
+
+.executive-contact {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.contact-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.linkedin { background: #0077B5; color: white; }
+.email { background: #2A5C82; color: white; }
+
+.contact-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.executive-bio {
+    font-size: 0.85rem;
+    color: #666;
+    line-height: 1.6;
+    opacity: 0;
+    max-height: 0;
+    transition: all 0.4s ease;
+}
+
+/* Hover Effects */
+.executive-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+}
+
+.executive-card:hover .executive-bio {
+    opacity: 1;
+    max-height: 100px;
+}
+
+.executive-card:hover img {
+    filter: grayscale(0%);
+    transform: scale(1.05);
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .executive-row {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .executive-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .executive-image {
+        height: 300px;
+    }
+}
+
+/* style for alert box */
+/* Optional custom animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-10px); }
+    75% { transform: translateX(10px); }
+}
+
+@keyframes heartBeat {
+    0% { transform: scale(1); }
+    14% { transform: scale(1.03); }
+    28% { transform: scale(1); }
+    42% { transform: scale(1.03); }
+    70% { transform: scale(1); }
+}
+
+.swal2-popup {
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+
+
+    
+</style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">NMTA</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#leadership">Executives</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#gallery">Gallery</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#members">Members</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#testimonials">Testimonials</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#register">Register</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header Carousel -->
+    <header id="home">
+        <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="images/1.png" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="images/2.png" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="images/3.png" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="images/4.png" class="d-block w-100" alt="...">
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- About Section -->
+    <section id="about" class="section-padding">
+        <div class="container">
+            <div class="section-header mb-5">
+                <h2 class="display-5 fw-bold text-center mb-4">About New Market Trader's Association</h2>
+                <p class="lead text-center mb-5"><em>Empowering Commerce, Enriching Community</em></p>
+            </div>
+    
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="about-content">
+                        <h3 class="h4 fw-bold mb-4">Foundational Principles</h3>
+                        <p class="mb-4">Established as the cornerstone of New Market's commercial ecosystem, the New Market Trader's Association (NMTA) stands as a vanguard institution committed to fostering economic excellence and intergenerational prosperity in Pakyong. As a non-profit organization of repute, we orchestrate synergistic partnerships between established enterprises and emerging entrepreneurs, cultivating a progressive business environment that honors tradition while embracing innovation.</p>
+    
+                        <div class="vision-mission mb-5">
+                            <div class="row g-4">
+                                <div class="col-md-6">
+                                    <div class="p-4 bg-light rounded">
+                                        <h4 class="h5 fw-bold mb-3 text-primary">Our Vision</h4>
+                                        <p>To architect a self-sustaining commercial landscape where heritage commerce and modern entrepreneurship coexist in mutual advancement, ensuring New Market's position as Eastern Sikkim's premier business destination.</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="p-4 bg-light rounded">
+                                        <h4 class="h5 fw-bold mb-3 text-primary">Our Mission</h4>
+                                        <p class="fw-medium mb-2">Preserving Legacy, Building Futures</p>
+                                        <ul class="list-unstyled">
+                                            <li class="mb-2">✓ Policy advocacy & infrastructural modernization</li>
+                                            <li class="mb-2">✓ Financial literacy programs & growth capital access</li>
+                                            <li class="mb-2">✓ Youth entrepreneurship incubation</li>
+                                            <li class="mb-2">✓ Sustainable business practices</li>
+                                            <li>✓ Heritage preservation initiatives</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+    
+                        <h3 class="h4 fw-bold mb-4">Intergenerational Commitment</h3>
+                        <div class="row g-4 mb-5">
+                            <div class="col-md-6">
+                                <ul class="list-unstyled">
+                                    <li class="mb-3">
+                                        <h5 class="fw-bold">Future Traders Initiative</h5>
+                                        <p>Apprenticeship programs pairing seasoned merchants with young innovators</p>
+                                    </li>
+                                    <li class="mb-3">
+                                        <h5 class="fw-bold">Legacy Fund</h5>
+                                        <p>Financial instruments ensuring business continuity across generations</p>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <ul class="list-unstyled">
+                                    <li class="mb-3">
+                                        <h5 class="fw-bold">Digital Empowerment Wing</h5>
+                                        <p>Technological upskilling for next-gen commerce</p>
+                                    </li>
+                                    <li>
+                                        <h5 class="fw-bold">Women in Trade Forum</h5>
+                                        <p>Gender-inclusive growth platforms</p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+    
+                        <div class="highlight-box bg-primary text-white p-4 rounded mb-5">
+                            <h4 class="h5 fw-bold mb-3">Why NMTA?</h4>
+                            <div class="row">
+                                <div class="col-md-3 text-center mb-3">
+                                    <div class="display-6 fw-bold">93%</div>
+                                    <small>Member Retention</small>
+                                </div>
+                                <div class="col-md-3 text-center mb-3">
+                                    <div class="display-6 fw-bold">45%</div>
+                                    <small>Startup Success Rate</small>
+                                </div>
+                                <div class="col-md-3 text-center mb-3">
+                                    <div class="display-6 fw-bold">₹80 K</div>
+                                    <small>Funds Mobilized</small>
+                                </div>
+                                <div class="col-md-3 text-center mb-3">
+                                    <div class="display-6 fw-bold">Awarded</div>
+                                    <small>By IDCC Pakyong 2022</small>
+                                </div>
+                            </div>
+                        </div>
+    
+                        <blockquote class="blockquote text-center mb-5">
+                            <p class="mb-0 fs-4 fst-italic text-dark">"Commerce With Conscience"</p>
+                        </blockquote>
+    
+                        <div class="responsibility-pillars">
+                            <h4 class="h5 fw-bold mb-4">Three Pillars of Responsibility</h4>
+                            <div class="row g-4">
+                                <div class="col-md-4">
+                                    <div class="p-3 border rounded">
+                                        <h5 class="fw-bold text-success">Economic</h5>
+                                        <p class="mb-0">Enhancing competitiveness through collective bargaining</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="p-3 border rounded">
+                                        <h5 class="fw-bold text-success">Social</h5>
+                                        <p class="mb-0">Maintaining ethical trade practices & community welfare</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="p-3 border rounded">
+                                        <h5 class="fw-bold text-success">Environmental</h5>
+                                        <p class="mb-0">Implementing green marketplace initiatives</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+    
+                        <div class="cta-box text-center mt-5 pt-4">
+                            <p class="lead">As custodians of New Market's commercial future, NMTA remains unwavering in its commitment to transform individual enterprise into collective prosperity. We invite you to join our movement toward creating an economically vibrant, socially responsible, and intergenerationally sustainable business community.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Executive Section -->
+
+    <section id="leadership" class="section-padding">
+        <div class="container">
+            <div class="section-header mb-5">
+                <h2 class="display-5 fw-bold text-center mb-3">Executive Leadership</h2>
+                <p class="text-center text-muted">Steering Committee Members</p>
+            </div>
+    
+            <!-- Executive Grid -->
+            <div class="executive-grid">
+                <!-- Row 1 -->
+                <div class="executive-row">
+                    <!-- Executive 1 -->
+                    <div class="executive-column">
+                        <div class="executive-card">
+                            <div class="executive-image">
+                                <img src="images/member.png" alt="Chairperson">
+                                <div class="role-badge">Chairperson</div>
+                            </div>
+                            <div class="executive-details">
+                                <h3>Johnathan Smith</h3>
+                                <p class="position">Chief Executive Officer</p>
+                                <div class="executive-contact">
+                                    <a href="#" class="contact-btn linkedin"><i class="fab fa-linkedin"></i></a>
+                                    <a href="#" class="contact-btn email"><i class="fas fa-envelope"></i></a>
+                                </div>
+                                <div class="executive-bio">
+                                    <p>20+ years in trade leadership<br>
+                                    MBA, Harvard Business School</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div class="executive-column">
+                        <div class="executive-card">
+                            <div class="executive-image">
+                                <img src="images/member.png" alt="Chairperson">
+                                <div class="role-badge">Chairperson</div>
+                            </div>
+                            <div class="executive-details">
+                                <h3>Johnathan Smith</h3>
+                                <p class="position">Chief Executive Officer</p>
+                                <div class="executive-contact">
+                                    <a href="#" class="contact-btn linkedin"><i class="fab fa-linkedin"></i></a>
+                                    <a href="#" class="contact-btn email"><i class="fas fa-envelope"></i></a>
+                                </div>
+                                <div class="executive-bio">
+                                    <p>20+ years in trade leadership<br>
+                                    MBA, Harvard Business School</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div class="executive-column">
+                        <div class="executive-card">
+                            <div class="executive-image">
+                                <img src="images/member.png" alt="Chairperson">
+                                <div class="role-badge">Chairperson</div>
+                            </div>
+                            <div class="executive-details">
+                                <h3>Johnathan Smith</h3>
+                                <p class="position">Chief Executive Officer</p>
+                                <div class="executive-contact">
+                                    <a href="#" class="contact-btn linkedin"><i class="fab fa-linkedin"></i></a>
+                                    <a href="#" class="contact-btn email"><i class="fas fa-envelope"></i></a>
+                                </div>
+                                <div class="executive-bio">
+                                    <p>20+ years in trade leadership<br>
+                                    MBA, Harvard Business School</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div class="executive-column">
+                        <div class="executive-card">
+                            <div class="executive-image">
+                                <img src="images/member.png" alt="Chairperson">
+                                <div class="role-badge">Chairperson</div>
+                            </div>
+                            <div class="executive-details">
+                                <h3>Johnathan Smith</h3>
+                                <p class="position">Chief Executive Officer</p>
+                                <div class="executive-contact">
+                                    <a href="#" class="contact-btn linkedin"><i class="fab fa-linkedin"></i></a>
+                                    <a href="#" class="contact-btn email"><i class="fas fa-envelope"></i></a>
+                                </div>
+                                <div class="executive-bio">
+                                    <p>20+ years in trade leadership<br>
+                                    MBA, Harvard Business School</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <!-- Repeat for 3 more executives in the first row -->
+                </div>
+    
+                <!-- Row 2 -->
+                <div class="executive-row">
+                    <!-- Executives 5-8 -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="section-padding bg-light-gray">
+        <div class="container">
+            <h2 class="text-center mb-5">Gallery</h2>
+            <div class="row g-3">
+                <div class="col-md-4 col-6">
+                    <div class="gallery-item">
+                        <img src="images/1.png" class="img-fluid w-100 h-auto clickable-image" alt="Gallery Image 1">
+                    </div>
+                </div>
+                <!-- Repeat for other images -->
+                <div class="col-md-4 col-6">
+                    <div class="gallery-item">
+                        <img src="images/2.png" class="img-fluid w-100 h-auto clickable-image" alt="Gallery Image 1">
+                    </div>
+                </div>
+                <!-- Repeat for other images -->
+                <div class="col-md-4 col-6">
+                    <div class="gallery-item">
+                        <img src="images/3.png" class="img-fluid w-100 h-auto clickable-image" alt="Gallery Image 1">
+                    </div>
+                </div>
+                <!-- Repeat for other images -->
+                <div class="col-md-4 col-6">
+                    <div class="gallery-item">
+                        <img src="images/4.png" class="img-fluid w-100 h-auto clickable-image" alt="Gallery Image 1">
+                    </div>
+                </div>
+                <!-- Repeat for other images -->
+            </div>
+        </div>
+    </section>
+    <!-- This section will have an enlarged images -->
+        <div class="image-modal">
+            <img class="modal-content" id="expandedImg">
+        </div>
+
+    <!-- Members Section -->
+    <section id="members" class="section-padding">
+        <div class="container">
+            <div class="section-header mb-5">
+                <h2 class="display-5 fw-bold text-center mb-3">Our Esteemed Members</h2>
+                <p class="text-center text-muted">Driving New Market's Commercial Excellence</p>
+            </div>
+    
+            <div class="row g-4">
+                <!-- Member Card -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="member-card hover-shadow">
+                        <div class="member-header position-relative">
+                            <img src="images/CIT_Logo.jpeg" class="member-img" alt="Computech IT">
+                            <div class="member-overlay">
+                                <div class="social-links">
+                                    <a href="https://wa.me/917872778009" target="_blank" class="whatsapp-link">
+                                        <i class="fab fa-whatsapp"></i> Chat
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body text-center">
+                            <h5 class="card-title fw-bold mb-1">Computech IT</h5>
+                            <p class="text-muted small mb-2">IT Solutions Provider</p>
+                            <div class="member-details">
+                                <p class="mb-1"><i class="fas fa-user-tie me-2"></i>Satish Pradhan</p>
+                                <p class="mb-0"><i class="fas fa-map-marker-alt me-2"></i>Shop No. 7, New Market</p>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-light">
+                            <a href="tel:+917872778009" class="btn btn-sm btn-outline-primary w-100">
+                                <i class="fas fa-phone me-2"></i>Call Now
+                            </a>
+                        </div>
+                    </div>
+                   
+                </div>
+    
+                <!-- Repeat other member cards (same structure) -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="member-card hover-shadow">
+                        <div class="member-header position-relative">
+                            <img src="images/member.png" class="member-img" alt="Computech IT">
+                            <div class="member-overlay">
+                                <div class="social-links">
+                                    <a href="https://wa.me/917872778009" target="_blank" class="whatsapp-link">
+                                        <i class="fab fa-whatsapp"></i> Chat
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body text-center">
+                            <h5 class="card-title fw-bold mb-1">Computech IT</h5>
+                            <p class="text-muted small mb-2">IT Solutions Provider</p>
+                            <div class="member-details">
+                                <p class="mb-1"><i class="fas fa-user-tie me-2"></i>Business Owner Name</p>
+                                <p class="mb-0"><i class="fas fa-map-marker-alt me-2"></i>Shop No. 45, New Market</p>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-light">
+                            <a href="tel:+917872778009" class="btn btn-sm btn-outline-primary w-100">
+                                <i class="fas fa-phone me-2"></i>Call Now
+                            </a>
+                        </div>
+                    </div>
+                   
+                </div>
+    
+                <!-- Repeat other member cards (same structure) -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="member-card hover-shadow">
+                        <div class="member-header position-relative">
+                            <img src="images/member.png" class="member-img" alt="Computech IT">
+                            <div class="member-overlay">
+                                <div class="social-links">
+                                    <a href="https://wa.me/917872778009" target="_blank" class="whatsapp-link">
+                                        <i class="fab fa-whatsapp"></i> Chat
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body text-center">
+                            <h5 class="card-title fw-bold mb-1">Computech IT</h5>
+                            <p class="text-muted small mb-2">IT Solutions Provider</p>
+                            <div class="member-details">
+                                <p class="mb-1"><i class="fas fa-user-tie me-2"></i>Business Owner Name</p>
+                                <p class="mb-0"><i class="fas fa-map-marker-alt me-2"></i>Shop No. 45, New Market</p>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-light">
+                            <a href="tel:+917872778009" class="btn btn-sm btn-outline-primary w-100">
+                                <i class="fas fa-phone me-2"></i>Call Now
+                            </a>
+                        </div>
+                    </div>
+                   
+                </div>
+    
+                <!-- Repeat other member cards (same structure) -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="member-card hover-shadow">
+                        <div class="member-header position-relative">
+                            <img src="images/member.png" class="member-img" alt="Computech IT">
+                            <div class="member-overlay">
+                                <div class="social-links">
+                                    <a href="https://wa.me/917872778009" target="_blank" class="whatsapp-link">
+                                        <i class="fab fa-whatsapp"></i> Chat
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body text-center">
+                            <h5 class="card-title fw-bold mb-1">Computech IT</h5>
+                            <p class="text-muted small mb-2">IT Solutions Provider</p>
+                            <div class="member-details">
+                                <p class="mb-1"><i class="fas fa-user-tie me-2"></i>Business Owner Name</p>
+                                <p class="mb-0"><i class="fas fa-map-marker-alt me-2"></i>Shop No. 45, New Market</p>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-light">
+                            <a href="tel:+917872778009" class="btn btn-sm btn-outline-primary w-100">
+                                <i class="fas fa-phone me-2"></i>Call Now
+                            </a>
+                        </div>
+                    </div>
+                   
+                </div>
+    
+                <!-- Repeat other member cards (same structure) -->
+
+            
+            </div>
+        </div>
+    </section>
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="section-padding bg-light-gray">
+        <div class="container">
+            <div class="section-header mb-5">
+                <h2 class="display-5 fw-bold text-center mb-3">Voices of Trust</h2>
+                <p class="text-center text-muted">What Our Community Members Say</p>
+            </div>
+    
+            <div class="row g-4 testimonial-grid">
+                <!-- Testimonial Card 1 -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="testimonial-card hover-shadow">
+                        <div class="card-body p-4">
+                            <div class="testimonial-header d-flex align-items-center mb-4">
+                                <div class="testimonial-avatar">
+                                    <img src="images/member.png" alt="Mr. No Body" class="img-fluid">
+                                </div>
+                                <div class="ms-3">
+                                    <h5 class="mb-0 fw-bold">Mr. No Body</h5>
+                                    <p class="text-muted small mb-0">General Store Owner</p>
+                                    <div class="rating text-warning small">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <blockquote class="mb-0">
+                                <p class="testimonial-text">"NMTA has revolutionized our business operations through their innovative programs. The market development initiatives have increased footfall by 40% in just six months."</p>
+                                <div class="testimonial-company d-flex align-items-center mt-3">
+                                    <img src="images/company-logo1.png" alt="Company" class="company-logo me-2">
+                                    <span class="text-muted small">New Market Enterprises</span>
+                                </div>
+                            </blockquote>
+                        </div>
+                    </div>
+                </div>
+    
+                <!-- Testimonial Card 2 -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="testimonial-card hover-shadow">
+                        <div class="card-body p-4">
+                            <div class="testimonial-header d-flex align-items-center mb-4">
+                                <div class="testimonial-avatar">
+                                    <img src="images/testo2.png" alt="Miss Lisa" class="img-fluid">
+                                </div>
+                                <div class="ms-3">
+                                    <h5 class="mb-0 fw-bold">Miss Lisa</h5>
+                                    <p class="text-muted small mb-0">Fashion Boutique Owner</p>
+                                    <div class="rating text-warning small">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star-half-alt"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <blockquote class="mb-0">
+                                <p class="testimonial-text">"The digital transformation workshop helped us establish an online presence. We've seen a 300% increase in orders since implementing their strategies."</p>
+                                <div class="testimonial-company d-flex align-items-center mt-3">
+                                    <img src="images/company-logo2.png" alt="Company" class="company-logo me-2">
+                                    <span class="text-muted small">Lisa's Fashion Hub</span>
+                                </div>
+                            </blockquote>
+                        </div>
+                    </div>
+                </div>
+    
+                <!-- Testimonial Card 3 -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="testimonial-card hover-shadow">
+                        <div class="card-body p-4">
+                            <div class="testimonial-header d-flex align-items-center mb-4">
+                                <div class="testimonial-avatar">
+                                    <img src="images/testo1.png" alt="Miss Reena" class="img-fluid">
+                                </div>
+                                <div class="ms-3">
+                                    <h5 class="mb-0 fw-bold">Miss Reena</h5>
+                                    <p class="text-muted small mb-0">Young Entrepreneur</p>
+                                    <div class="rating text-warning small">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <blockquote class="mb-0">
+                                <p class="testimonial-text">"The startup incubation program gave me the tools and confidence to launch my business. NMTA's mentorship has been invaluable to my success."</p>
+                                <div class="testimonial-company d-flex align-items-center mt-3">
+                                    <img src="images/company-logo3.png" alt="Company" class="company-logo me-2">
+                                    <span class="text-muted small">Reena's Craft Studio</span>
+                                </div>
+                            </blockquote>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Registration Section -->
+    <section id="register" class="section-padding">
+        <div class="container">
+            <h2 class="text-center mb-5">Member Registration</h2>
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <form>
+                        <div class="mb-3">
+                            <input type="text" class="form-control" placeholder="Full Name" required maxlength="50">
+                        </div>
+                        <div class="mb-3">
+                            <input type="email" class="form-control" placeholder="Email" required maxlength="150">
+                        </div>
+                        <div class="mb-3">
+                            <input type="tel" class="form-control" placeholder="Phone Number" required maxlength="10">
+                        </div>
+                        <div class="mb-3">
+                            <textarea class="form-control" rows="4" placeholder="Business Details"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Submit Application</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Footer -->
+    <footer class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5>Contact Us</h5>
+                    <p>New Market, Pakyong<br>Email: info@nmta.org<br>Phone: +91 123 456 7890</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#about" class="text-white">About Us</a></li>
+                        <li><a href="#members" class="text-white">Members</a></li>
+                        <li><a href="#register" class="text-white">Register</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>Follow Us</h5>
+                    <div class="social-links">
+                        <a href="#" class="text-white me-2"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="text-white me-2"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-white me-2"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-4">
+                <p>&copy; 2025 NMTA. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/your-font-awesome-kit.js"></script>
+
+    <!-- Lightbox -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
+
+<script>
+    lightbox.option({
+        'resizeDuration': 200,
+        'wrapAround': true,
+        'alwaysShowNavOnTouchDevices': true,
+        'positionFromTop': 100
+    });
+</script>
+<script>
+    // Add this JavaScript
+    document.addEventListener('DOMContentLoaded', function() {
+        const images = document.querySelectorAll('.gallery-item img');
+        const modal = document.querySelector('.image-modal');
+        const modalImg = document.getElementById('expandedImg');
+
+        images.forEach(img => {
+            img.addEventListener('click', function(e) {
+                e.stopPropagation();
+                modal.classList.add('active');
+                modalImg.src = this.src;
+            });
+        });
+
+        modal.addEventListener('click', function(e) {
+            if (e.target !== modalImg) {
+                modal.classList.remove('active');
+            }
+        });
+
+        // Close with ESC key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                modal.classList.remove('active');
+            }
+        });
+    });
+</script>
+
+
+<!-- Add SweetAlert2 CSS & JS -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const form = document.querySelector('#register form');
+    
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        // Get form elements
+        const formElements = e.target.elements;
+        const formData = {
+            memberName: formElements[0].value.trim(),
+            email: formElements[1].value.trim(),
+            phone: formElements[2].value.trim(),
+            businessDetails: formElements[3].value.trim()
+        };
+
+        // Show loading state
+        Swal.fire({
+            title: 'Processing...',
+            text: 'Please wait while we submit your application',
+            allowOutsideClick: false,
+            didOpen: () => {
+                Swal.showLoading()
+            }
+        });
+
+        try {
+            const response = await fetch('http://localhost:3000/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData)
+            });
+
+            const result = await response.json();
+            
+            Swal.close();
+            
+            if (response.ok) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success!',
+                    text: 'Registration completed successfully',
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Ok',
+                    customClass: {
+                        popup: 'animated fadeIn'
+                    }
+                });
+                form.reset();
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Registration Failed',
+                    text: result.error || 'Please check your details and try again',
+                    confirmButtonColor: '#d33',
+                    confirmButtonText: 'Try Again',
+                    customClass: {
+                        popup: 'animated shake'
+                    }
+                });
+            }
+        } catch (error) {
+            Swal.close();
+            Swal.fire({
+                icon: 'warning',
+                title: 'Connection Error',
+                text: 'Unable to connect to the server. Please check your internet connection.',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'OK',
+                customClass: {
+                    popup: 'animated heartBeat'
+                }
+            });
+            console.error('Error:', error);
+        }
+    });
+});
+</script>
+
+<!-- to fetch  record from the table -->
+
+<script>
+    document.addEventListener('DOMContentLoaded', async () => {
+        const membersBody = document.getElementById('membersBody');
+        const loadingIndicator = document.getElementById('loading');
+        
+        try {
+            // Show loading state
+            loadingIndicator.style.display = 'block';
+    
+            // Fetch members from your backend API
+            const response = await fetch('/api/members');
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            
+            const members = await response.json();
+    
+            // Clear loading state
+            loadingIndicator.style.display = 'none';
+    
+            // Populate table
+            membersBody.innerHTML = members.map(member => `
+                <tr class="member-row">
+                    <td>${member.memberName}</td>
+                    <td>${member.email}</td>
+                    <td>${member.phone}</td>
+                    <td>${new Date(member.registrationDate).toLocaleDateString()}</td>
+                    <td><button class="details-btn">▶ </button></td>
+                </tr>
+                <tr class="details-row">
+                    <td colspan="5">
+                        <div class="details-content">
+                            <h4>Business Details</h4>
+                            <p>${member.businessDetails || 'No details provided'}</p>
+                            <div class="meta-info">
+                                <span>Member ID: ${member.id}</span>
+                                <span>Registered: ${new Date(member.registrationDate).toLocaleString()}</span>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+                
+            document.querySelectorAll('.details-row').forEach(row => {
+                row.style.display = 'none';
+            });
+            // Add toggle functionality
+            document.querySelectorAll('.details-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const detailsRow = this.closest('.member-row').nextElementSibling;
+                    const isOpen = detailsRow.style.display === 'table-row';
+                    
+                    // Toggle icon
+                    this.innerHTML = isOpen ? '▶ ' : '▼ ';
+                    
+                    // Toggle row visibility
+                    detailsRow.style.display = isOpen ? 'none' : 'table-row';
+                    
+                    // Smooth scroll
+                    if (!isOpen) {
+                        detailsRow.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    }
+                });
+            });
+
+
+
+            
+
+    
+        } catch (error) {
+            console.error('Error loading members:', error);
+            loadingIndicator.style.display = 'none';
+            membersBody.innerHTML = `
+                <tr class="error-row">
+                    <td colspan="5">
+                        Failed to load members. Please try again later.
+                        <button onclick="location.reload()">Retry</button>
+                    </td>
+                </tr>
+            `;
+        }
+    });
+    </script>
+
+</body>
+</html>

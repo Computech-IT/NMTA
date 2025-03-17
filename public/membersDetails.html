@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NMTA - New Market Trader's Association</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Add in head section -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bootstrap-4/bootstrap-4.css" rel="stylesheet">
+<style>
+
+       /* Custom CSS for NMTA Website */
+       :root {
+    --primary-color: #2A5C82;    /* Professional blue */
+    --secondary-color: #4CAF50;  /* Fresh green */
+    --accent-color: #FFC107;     /* Golden yellow */
+    --dark-color: #2d2d2d;
+    --light-color: #f8f9fa;
+}
+
+/* Typography */
+body {
+    font-family: 'Poppins', sans-serif;
+    color: var(--dark-color);
+    line-height: 1.7;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+/* Navbar Enhancements */
+.navbar {
+    background: var(--primary-color) !important;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+    padding: 1rem 0;
+}
+
+.navbar-brand {
+    font-weight: 700;
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+}
+
+.nav-link {
+    color: rgba(255,255,255,0.9) !important;
+    font-weight: 500;
+    margin: 0 1rem;
+    position: relative;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    background: var(--accent-color);
+    bottom: 0;
+    left: 0;
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+/* members data table */
+/* CSS Styles */
+.members-section {
+        padding: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.5rem;
+    }
+
+    .section-title {
+        color: #2c3e50;
+        font-size: 2rem;
+    }
+
+    .print-btn {
+        background: #4CAF50;
+        color: white;
+        border: none;
+        padding: 0.8rem 1.5rem;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background 0.3s;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .print-btn:hover {
+        background: #45a049;
+    }
+    /* Members Table Styles */
+.members-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 2rem 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.members-table th {
+    background-color: #f8f9fa;
+    color: #495057;
+    font-weight: 600;
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 2px solid #e9ecef;
+}
+
+.members-table td {
+    padding: 1rem;
+    border-bottom: 1px solid #e9ecef;
+    vertical-align: middle;
+}
+
+/* Collapse Arrow Styling */
+.collapse-arrow {
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    text-align: center;
+}
+
+.collapse-arrow::after {
+    content: "▶";
+    color: #6c757d;
+    transition: transform 0.2s ease;
+}
+
+.collapse-arrow.active::after {
+    content: "▼";
+    color: #4a90e2;
+}
+
+/* Hover Effects */
+.members-table tr:hover td {
+    background-color: #f8f9fa;
+}
+
+/* Loading State */
+.loading-spinner {
+    display: inline-block;
+    width: 1.5rem;
+    height: 1.5rem;
+    border: 3px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 3px solid #4a90e2;
+    animation: spin 1s linear infinite;
+    margin-right: 0.5rem;
+}
+
+#loading td {
+    text-align: center;
+    padding: 2rem;
+    color: #6c757d;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Details Row */
+.details-row {
+    background-color: #f8fafc;
+}
+
+.details-content {
+    padding: 1.5rem;
+    border-top: 1px solid #e9ecef;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .members-table {
+        display: block;
+        overflow-x: auto;
+    }
+    
+    .members-table th:nth-child(4),
+    .members-table td:nth-child(4) {
+        min-width: 120px;
+    }
+}
+
+/* Error State */
+.error-row td {
+    color: #dc3545;
+    background-color: #fff5f5;
+    text-align: center;
+    padding: 1.5rem;
+}
+    
+</style>
+</style>
+</head>
+<body>
+     <!-- Navbar -->
+     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">NMTA</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="/index.html#home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div style="margin-top: 70px;;">
+
+    </div>
+
+<!-- members details fetched from database -->
+<section class="members-section">
+    <div class="section-header">
+        <h2 class="section-title">Member Directory</h2>
+        <button class="print-btn">
+            <i class="fas fa-print"></i>
+            Print
+        </button>
+    </div>
+
+    <div class="members-table">
+        <table class="members-table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Registration Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="membersBody">
+                <!-- Loading indicator row -->
+                <tr id="loading">
+                    <td colspan="5">
+                        <div class="loading-spinner"></div>
+                        Loading members...
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/your-font-awesome-kit.js"></script>
+
+    <!-- Lightbox -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const membersBody = document.getElementById('membersBody');
+            const loadingIndicator = document.getElementById('loading');
+            
+            try {
+                // Show loading state
+                loadingIndicator.style.display = 'block';
+        
+                // Fetch members from your backend API
+                const response = await fetch('/api/members');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const members = await response.json();
+        
+                // Clear loading state
+                loadingIndicator.style.display = 'none';
+        
+                // Populate table
+                membersBody.innerHTML = members.map(member => `
+                    <tr class="member-row">
+                        <td>${member.memberName}</td>
+                        <td>${member.email}</td>
+                        <td>${member.phone}</td>
+                        <td>${new Date(member.registrationDate).toLocaleDateString()}</td>
+                        <td><button class="details-btn">▶ </button></td>
+                    </tr>
+                    <tr class="details-row">
+                        <td colspan="5">
+                            <div class="details-content">
+                                <h4>Business Details</h4>
+                                <p>${member.businessDetails || 'No details provided'}</p>
+                                <div class="meta-info">
+                                    <span>Member ID: ${member.id}</span>
+                                    <span>Registered: ${new Date(member.registrationDate).toLocaleString()}</span>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                `).join('');
+                    
+                document.querySelectorAll('.details-row').forEach(row => {
+                    row.style.display = 'none';
+                });
+                // Add toggle functionality
+                document.querySelectorAll('.details-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const detailsRow = this.closest('.member-row').nextElementSibling;
+                        const isOpen = detailsRow.style.display === 'table-row';
+                        
+                        // Toggle icon
+                        this.innerHTML = isOpen ? '▶ ' : '▼ ';
+                        
+                        // Toggle row visibility
+                        detailsRow.style.display = isOpen ? 'none' : 'table-row';
+                        
+                        // Smooth scroll
+                        if (!isOpen) {
+                            detailsRow.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                        }
+                    });
+                });
+    
+    
+    
+                
+    
+        
+            } catch (error) {
+                console.error('Error loading members:', error);
+                loadingIndicator.style.display = 'none';
+                membersBody.innerHTML = `
+                    <tr class="error-row">
+                        <td colspan="5">
+                            Failed to load members. Please try again later.
+                            <button onclick="location.reload()">Retry</button>
+                        </td>
+                    </tr>
+                `;
+            }
+        });
+    </script>
+    <script>
+        // Add this script
+        document.querySelector('.print-btn').addEventListener('click', () => {
+            // Show all details rows temporarily
+            const allDetailsRows = document.querySelectorAll('.details-row');
+                        const actionColumns = document.querySelectorAll('th:nth-child(5), td:nth-child(5)');
+
+            allDetailsRows.forEach(row => row.style.display = 'table-row');
+            
+            // Trigger print
+            window.print();
+            
+            // Restore original state after print
+            setTimeout(() => {
+                allDetailsRows.forEach(row => {
+                    const parentRow = row.previousElementSibling;
+                    const isActive = parentRow.querySelector('.collapse-arrow').classList.contains('active');
+                    row.style.display = isActive ? 'table-row' : 'none';
+                });
+            }, 500);
+        });
+
+        // Add this CSS for print optimization
+        const printStyles = document.createElement('style');
+        printStyles.textContent = `
+            @media print {
+                .print-btn { display: none !important; }
+                .details-row { display: table-row !important; }
+                .collapse-arrow { display: none !important; }
+                
+                table {
+                    width: 100% !important;
+                    border-collapse: collapse !important;
+                    font-size: 12pt !important;
+                }
+                
+                th, td {
+                    padding: 8px !important;
+                    border: 1px solid #ddd !important;
+                }
+                
+                .details-content {
+                    padding: 10px !important;
+                    background: #fff !important;
+                }
+            }
+        `;
+        document.head.appendChild(printStyles);
+    </script>
+    
+</body>
+</html>
