@@ -8,12 +8,13 @@ const port = process.env.PORT || 3000;
 
 // const cors = require('cors');
 
-app.use(cors({
-    origin: ['http://localhost', 'https://nmta.onrender.com'], // Allow both local and deployed domains
-    methods: ['GET', 'POST'],
-    allowedHeaders: ['Content-Type']
-}));
+// app.use(cors({
+   // origin: ['http://localhost', 'https://nmta.onrender.com'], // Allow both local and deployed domains
+    // methods: ['GET', 'POST'],
+    // allowedHeaders: ['Content-Type']
+// }));
 
+app.use(cors());
 
 // Promisify database methods
 const dbRun = promisify(db.run.bind(db));
