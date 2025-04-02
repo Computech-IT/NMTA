@@ -1449,12 +1449,18 @@ footer {
           didOpen: () => Swal.showLoading()
         });
     
-        // Submit with timeout fallback
-        const fetchPromise = fetch('http://localhost:3000/register', {
+        //submit the form data
+          
+          const API_URL = window.location.hostname === 'localhost' 
+          ? 'http://localhost:3000/register' 
+          : 'https://nmta.onrender.com/register';
+        
+        const fetchPromise = fetch(API_URL, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(formData)
         });
+
         
         // Race between fetch and timeout
         const timeoutPromise = new Promise((_, reject) => 
