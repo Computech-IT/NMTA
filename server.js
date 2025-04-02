@@ -6,13 +6,14 @@ const { promisify } = require('util');
 const app = express();
 const port = process.env.PORT || 3000;
 
-// Add CORS configuration HERE (right after app initialization)
+// const cors = require('cors');
+
 app.use(cors({
-    origin: 'http://localhost', // For development
-    // origin: 'https://yourproductiondomain.com', // For production
+    origin: ['http://localhost', 'https://nmta.onrender.com'], // Allow both local and deployed domains
     methods: ['GET', 'POST'],
     allowedHeaders: ['Content-Type']
-  }));
+}));
+
 
 // Promisify database methods
 const dbRun = promisify(db.run.bind(db));
