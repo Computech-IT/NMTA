@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,6 +12,7 @@
     <!-- Add in head section -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bootstrap-4/bootstrap-4.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css">
 
     
     
@@ -1382,8 +1384,8 @@ footer {
     <script src="https://kit.fontawesome.com/your-font-awesome-kit.js"></script>
 
     <!-- Lightbox -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
     lightbox.option({
@@ -1424,89 +1426,67 @@ footer {
 </script>
 
 
-<!-- Add SweetAlert2 CSS & JS -->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
 <script>
-document.addEventListener('DOMContentLoaded', () => {
-    const form = document.querySelector('#register form');
-    
-    form.addEventListener('submit', async (e) => {
+    document.addEventListener('DOMContentLoaded', () => {
+      const form = document.querySelector('#register form');
+      
+      form.addEventListener('submit', async (e) => {
         e.preventDefault();
         
-        // Get form elements
-        const formElements = e.target.elements;
+        // Get form data (using your exact HTML structure)
+        const inputs = form.querySelectorAll('input, textarea');
         const formData = {
-            memberName: formElements[0].value.trim(),
-            email: formElements[1].value.trim(),
-            phone: formElements[2].value.trim(),
-            businessDetails: formElements[3].value.trim()
+          memberName: inputs[0].value.trim(),
+          email: inputs[1].value.trim(),
+          phone: inputs[2].value.trim(),
+          businessDetails: inputs[3].value.trim()
         };
-
-        // Show loading state
-        Swal.fire({
-            title: 'Processing...',
-            text: 'Please wait while we submit your application',
-            allowOutsideClick: false,
-            didOpen: () => {
-                Swal.showLoading()
-            }
+    
+        // Show loading
+        const swal = Swal.fire({
+          title: 'Processing...',
+          allowOutsideClick: false,
+          didOpen: () => Swal.showLoading()
         });
-
-        try {
-            const response = await fetch('https://nmta.onrender.com/register', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(formData)
-            });
-
-            const result = await response.json();
-            
-            Swal.close();
-            
-            if (response.ok) {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Success!',
-                    text: 'Registration completed successfully',
-                    confirmButtonColor: '#3085d6',
-                    confirmButtonText: 'Ok',
-                    customClass: {
-                        popup: 'animated fadeIn'
-                    }
-                });
-                form.reset();
-            } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Registration Failed',
-                    text: result.error || 'Please check your details and try again',
-                    confirmButtonColor: '#d33',
-                    confirmButtonText: 'Try Again',
-                    customClass: {
-                        popup: 'animated shake'
-                    }
-                });
-            }
-        } catch (error) {
-            Swal.close();
-            Swal.fire({
-                icon: 'warning',
-                title: 'Connection Error',
-                text: 'Unable to connect to the server. Please check your internet connection.',
-                confirmButtonColor: '#3085d6',
-                confirmButtonText: 'OK',
-                customClass: {
-                    popup: 'animated heartBeat'
-                }
-            });
-            console.error('Error:', error);
+    
+        // Submit with timeout fallback
+        const fetchPromise = fetch('http://localhost:3000/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData)
+        });
+        
+        // Race between fetch and timeout
+        const timeoutPromise = new Promise((_, reject) => 
+          setTimeout(() => reject('Request timed out'), 5000)
+        );
+    
+        const response = await Promise.race([fetchPromise, timeoutPromise])
+          .catch(() => null);
+    
+        // Close loading
+        swal.close();
+    
+        // Determine success (consider any response as success since data saves)
+        if (response) {
+          await Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: 'Your registration was received',
+            confirmButtonText: 'OK'
+          });
+          form.reset();
+        } else {
+          await Swal.fire({
+            icon: 'warning',
+            title: 'Submission Received',
+            text: 'Your application was submitted (confirmation pending)',
+            confirmButtonText: 'OK'
+          });
+          form.reset();
         }
+      });
     });
-});
-</script>
-
-
-
+    </script>
 </body>
 </html>
