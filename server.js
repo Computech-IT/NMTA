@@ -6,6 +6,14 @@ const { promisify } = require('util');
 const app = express();
 const port = process.env.PORT || 3000;
 
+// Add CORS configuration HERE (right after app initialization)
+app.use(cors({
+    origin: 'http://localhost', // For development
+    // origin: 'https://yourproductiondomain.com', // For production
+    methods: ['GET', 'POST'],
+    allowedHeaders: ['Content-Type']
+  }));
+
 // Promisify database methods
 const dbRun = promisify(db.run.bind(db));
 const dbAll = promisify(db.all.bind(db));
@@ -32,45 +40,47 @@ app.post('/register', async (req, res) => {
     try {
         const { memberName, email, phone, businessDetails } = req.body;
 
-        // Validation
+        // Validate required fields
         if (!memberName || !email || !phone) {
             return res.status(400).json({ 
-                error: 'All required fields (name, email, phone) must be provided' 
+                error: 'Name, email and phone are required' 
             });
         }
 
-        if (!validateEmail(email)) {
+        // Validate email format
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
             return res.status(400).json({ error: 'Invalid email format' });
         }
 
-        if (!validatePhone(phone)) {
-            return res.status(400).json({ error: 'Invalid phone number format' });
+        // Validate phone format (10 digits)
+        if (!/^\d{10}$/.test(phone)) {
+            return res.status(400).json({ error: 'Phone must be 10 digits' });
         }
 
-        // Insert into database
+        // Database operation
         const result = await dbRun(
             `INSERT INTO members (memberName, email, phone, businessDetails)
              VALUES (?, ?, ?, ?)`,
             [memberName, email, phone, businessDetails || null]
         );
 
-        res.status(201).json({
-            success: true,
-            memberId: result.lastID,
-            message: 'Registration successful'
+        // Successful response
+        res.status(200).json({
+            message: 'Registration successful',
+            memberId: result.lastID
         });
 
     } catch (error) {
-        console.error('Registration error:', error);
+        console.error('Database error:', error);
         
         if (error.message.includes('UNIQUE')) {
             return res.status(409).json({ 
-                error: 'Email or phone number already exists in our system' 
+                error: 'Email or phone already exists' 
             });
         }
 
         res.status(500).json({ 
-            error: 'Internal server error during registration' 
+            error: 'Database operation failed' 
         });
     }
 });
