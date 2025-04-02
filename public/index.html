@@ -1450,7 +1450,7 @@ footer {
         });
     
         // Submit with timeout fallback
-        const fetchPromise = fetch('http://nmta.onrender.com/register', {
+        const fetchPromise = fetch('http://localhost:3000/register', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(formData)
