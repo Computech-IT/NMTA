@@ -11,6 +11,8 @@
     <!-- Add in head section -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bootstrap-4/bootstrap-4.css" rel="stylesheet">
+    <link rel="icon" type="image/png" href="images/nmta_logo.png">
+
 <style>
 
        /* Custom CSS for NMTA Website */
@@ -212,9 +214,18 @@ h1, h2, h3, h4, h5, h6 {
     text-align: center;
     padding: 1.5rem;
 }
+.profile-img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 8px;
+    vertical-align: middle;
+}
+
     
 </style>
-</style>
+
 </head>
 <body>
      <!-- Navbar -->
@@ -279,90 +290,100 @@ h1, h2, h3, h4, h5, h6 {
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', async () => {
-            const membersBody = document.getElementById('membersBody');
-            const loadingIndicator = document.getElementById('loading');
-            
-            try {
-                // Show loading state
-                loadingIndicator.style.display = 'block';
-        
-                // Fetch members from your backend API
-                const response = await fetch('/api/members');
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
+    
+<script>
+    document.addEventListener('DOMContentLoaded', async () => {
+    const membersBody = document.getElementById('membersBody');
+    const loadingIndicator = document.getElementById('loading');
+
+    try {
+        // Show loading state
+        loadingIndicator.style.display = 'block';
+
+        // Fetch members from the backend API
+        const response = await fetch('/api/members');
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const members = await response.json();
+
+        // Clear loading state
+        loadingIndicator.style.display = 'none';
+
+        // Populate table
+        membersBody.innerHTML = members.map(member => `
+            <tr class="member-row">
+                <td>
+                    <img src="${member.profileImage || '/default-avatar.png'}" 
+                         alt="Profile Image" 
+                         class="profile-img"
+                         onerror="this.onerror=null; this.src='/default-avatar.png';">
+                    ${member.memberName}
+                </td>
+                <td>${member.email}</td>
+                <td>${member.phone}</td>
+                <td>${new Date(member.registrationDate).toLocaleDateString()}</td>
+                <td><button class="details-btn">▶ </button></td>
+            </tr>
+            <tr class="details-row">
+                <td colspan="5">
+                    <div class="details-content">
+                        <h4>Business Details</h4>
+                        <p>${member.businessDetails || 'No details provided'}</p>
+                        <div class="meta-info">
+                            <span>Member ID: ${member.id}</span>
+                            <span>Registered: ${new Date(member.registrationDate).toLocaleString()}</span>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        `).join('');
+
+        // Hide all details initially
+        document.querySelectorAll('.details-row').forEach(row => row.style.display = 'none');
+
+        // Add toggle functionality
+        document.querySelectorAll('.details-btn').forEach(btn => {
+            btn.addEventListener('click', function () {
+                const detailsRow = this.closest('.member-row').nextElementSibling;
+                const isOpen = detailsRow.style.display === 'table-row';
+
+                // Toggle icon
+                this.innerHTML = isOpen ? '▶ ' : '▼ ';
+
+                // Toggle row visibility
+                detailsRow.style.display = isOpen ? 'none' : 'table-row';
+
+                // Smooth scroll
+                if (!isOpen) {
+                    detailsRow.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                 }
-                
-                const members = await response.json();
-        
-                // Clear loading state
-                loadingIndicator.style.display = 'none';
-        
-                // Populate table
-                membersBody.innerHTML = members.map(member => `
-                    <tr class="member-row">
-                        <td>${member.memberName}</td>
-                        <td>${member.email}</td>
-                        <td>${member.phone}</td>
-                        <td>${new Date(member.registrationDate).toLocaleDateString()}</td>
-                        <td><button class="details-btn">▶ </button></td>
-                    </tr>
-                    <tr class="details-row">
-                        <td colspan="5">
-                            <div class="details-content">
-                                <h4>Business Details</h4>
-                                <p>${member.businessDetails || 'No details provided'}</p>
-                                <div class="meta-info">
-                                    <span>Member ID: ${member.id}</span>
-                                    <span>Registered: ${new Date(member.registrationDate).toLocaleString()}</span>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                `).join('');
-                    
-                document.querySelectorAll('.details-row').forEach(row => {
-                    row.style.display = 'none';
-                });
-                // Add toggle functionality
-                document.querySelectorAll('.details-btn').forEach(btn => {
-                    btn.addEventListener('click', function() {
-                        const detailsRow = this.closest('.member-row').nextElementSibling;
-                        const isOpen = detailsRow.style.display === 'table-row';
-                        
-                        // Toggle icon
-                        this.innerHTML = isOpen ? '▶ ' : '▼ ';
-                        
-                        // Toggle row visibility
-                        detailsRow.style.display = isOpen ? 'none' : 'table-row';
-                        
-                        // Smooth scroll
-                        if (!isOpen) {
-                            detailsRow.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                        }
-                    });
-                });
-    
-    
-    
-                
-    
-        
-            } catch (error) {
-                console.error('Error loading members:', error);
-                loadingIndicator.style.display = 'none';
-                membersBody.innerHTML = `
-                    <tr class="error-row">
-                        <td colspan="5">
-                            Failed to load members. Please try again later.
-                            <button onclick="location.reload()">Retry</button>
-                        </td>
-                    </tr>
-                `;
-            }
+            });
         });
-    </script>
+
+    } catch (error) {
+        console.error('Error loading members:', error);
+        loadingIndicator.style.display = 'none';
+        membersBody.innerHTML = `
+            <tr class="error-row">
+                <td colspan="5">
+                    Failed to load members. Please try again later.
+                    <button onclick="location.reload()">Retry</button>
+                </td>
+            </tr>
+        `;
+    }
+});
+
+</script>
+
+
+
+
+
+
+
     <script>
         // Add this script
         document.querySelector('.print-btn').addEventListener('click', () => {

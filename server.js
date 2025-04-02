@@ -34,63 +34,65 @@ app.use(express.static(path.join(__dirname, 'public')));  // Now works with path
 //app.use(express.static(path.join(__dirname, 'public')));
 
 
-// Registration endpoint
-app.post('/register', async (req, res) => {
+const multer = require('multer');
+
+// Configure file storage
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => cb(null, 'uploads/'), // Save in "uploads" folder
+    filename: (req, file, cb) => cb(null, Date.now() + path.extname(file.originalname))
+});
+
+const upload = multer({ storage });
+
+// registration endpoints
+app.post('/register', upload.single('profileImage'), async (req, res) => {
     try {
         const { memberName, email, phone, businessDetails } = req.body;
+        const profileImage = req.file ? req.file.filename : null;
 
-        // Validate required fields
         if (!memberName || !email || !phone) {
-            return res.status(400).json({ 
-                error: 'Name, email and phone are required' 
+            return res.status(400).json({ error: 'Name, email, and phone are required' });
+        }
+
+        const sql = `INSERT INTO members (memberName, email, phone, businessDetails, profileImage) VALUES (?, ?, ?, ?, ?)`;
+        const params = [memberName, email, phone, businessDetails || null, profileImage];
+
+        const result = await new Promise((resolve, reject) => {
+            db.run(sql, params, function (err) {
+                if (err) reject(err);
+                else resolve(this);
             });
-        }
+        });
 
-        // Validate email format
-        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-            return res.status(400).json({ error: 'Invalid email format' });
-        }
+        if (!result.lastID) throw new Error('Database insert failed');
 
-        // Validate phone format (10 digits)
-        if (!/^\d{10}$/.test(phone)) {
-            return res.status(400).json({ error: 'Phone must be 10 digits' });
-        }
-
-        // Database operation
-        const result = await dbRun(
-            `INSERT INTO members (memberName, email, phone, businessDetails)
-             VALUES (?, ?, ?, ?)`,
-            [memberName, email, phone, businessDetails || null]
-        );
-
-        // Successful response
         res.status(200).json({
             message: 'Registration successful',
-            memberId: result.lastID
+            memberId: result.lastID,
+            profileImage: profileImage
         });
 
     } catch (error) {
-        console.error('Database error:', error);
-        
-        if (error.message.includes('UNIQUE')) {
-            return res.status(409).json({ 
-                error: 'Email or phone already exists' 
-            });
-        }
-
-        res.status(500).json({ 
-            error: 'Database operation failed' 
-        });
+        res.status(500).json({ error: 'Database operation failed' });
     }
 });
 
+
+
 // Get members endpoint
+app.use('/uploads', express.static('uploads'));
+
+// Get members endpoint (fetches member data including profile images)
 app.get('/api/members', async (req, res) => {
     try {
         const rows = await dbAll('SELECT * FROM members');
+
         const members = rows.map(member => ({
             ...member,
-            registrationDate: new Date(member.registrationDate).toISOString()
+            registrationDate: new Date(member.registrationDate).toISOString(),
+            profileImage: member.profileImage 
+                ? `${req.protocol}://${req.get('host')}/uploads/${member.profileImage}` 
+                : null
         }));
         
         res.json(members);
@@ -102,6 +104,11 @@ app.get('/api/members', async (req, res) => {
         });
     }
 });
+
+
+
+
+
 
 // Validation functions
 function validateEmail(email) {

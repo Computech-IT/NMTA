@@ -15,7 +15,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css">
     <link rel="stylesheet" href="styles.css">
     
-    
+    <link rel="icon" type="image/png" href="images/nmta_logo.png">
+
+
  
 </head>
 <body>
@@ -44,12 +46,13 @@
         <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active position-relative">
-                    <img src="images/header_img.jpeg" class="d-block w-100" alt="...">
-                    <h1 class="carousel-caption text-center">NMTA Members, 2023</h1>
+                    <img src="images/header_img.jpeg" class="d-block w-100 fit-content-img" alt="...">
+                    <h1 class="carousel-caption text-center">NMTA Members</h1>
                 </div>
             </div>
         </div>
     </header>
+    
     
 
     <!-- About Section -->
@@ -491,7 +494,7 @@
                             <blockquote class="mb-0">
                                 <p class="testimonial-text">"NMTA has revolutionized our business operations through their innovative programs. The market development initiatives have increased footfall by 40% in just six months."</p>
                                 <div class="testimonial-company d-flex align-items-center mt-3">
-                                    <img src="images/company-logo1.png" alt="Company" class="company-logo me-2">
+                                    <img src="images/nmta_logo.png" alt="Company" class="company-logo me-2">
                                     <span class="text-muted small">New Market Enterprises</span>
                                 </div>
                             </blockquote>
@@ -522,7 +525,7 @@
                             <blockquote class="mb-0">
                                 <p class="testimonial-text">"The digital transformation workshop helped us establish an online presence. We've seen a 300% increase in orders since implementing their strategies."</p>
                                 <div class="testimonial-company d-flex align-items-center mt-3">
-                                    <img src="images/company-logo2.png" alt="Company" class="company-logo me-2">
+                                    <img src="images/nmta_logo.png" alt="Company" class="company-logo me-2">
                                     <span class="text-muted small">Lisa's Fashion Hub</span>
                                 </div>
                             </blockquote>
@@ -553,7 +556,7 @@
                             <blockquote class="mb-0">
                                 <p class="testimonial-text">"The startup incubation program gave me the tools and confidence to launch my business. NMTA's mentorship has been invaluable to my success."</p>
                                 <div class="testimonial-company d-flex align-items-center mt-3">
-                                    <img src="images/company-logo3.png" alt="Company" class="company-logo me-2">
+                                    <img src="images/nmta_logo.png" alt="Company" class="company-logo me-2">
                                     <span class="text-muted small">Reena's Craft Studio</span>
                                 </div>
                             </blockquote>
@@ -570,27 +573,32 @@
             <h2 class="text-center mb-5">Member Registration</h2>
             <div class="row justify-content-center">
                 <div class="col-md-6">
-                    <form>
+                    <form id="registrationForm" enctype="multipart/form-data">
                         <div class="mb-3">
-                            <input type="text" class="form-control" placeholder="Full Name" required maxlength="50">
+                            <input type="text" name="memberName" class="form-control" placeholder="Full Name" required maxlength="50">
                         </div>
                         <div class="mb-3">
-                            <input type="email" class="form-control" placeholder="Email" required maxlength="150">
+                            <input type="email" name="email" class="form-control" placeholder="Email" required maxlength="150">
                         </div>
                         <div class="mb-3">
-                            <input type="tel" class="form-control" placeholder="Phone Number" required maxlength="10">
+                            <input type="tel" name="phone" class="form-control" placeholder="Phone Number" required maxlength="10">
                         </div>
                         <div class="mb-3">
-                            <textarea class="form-control" rows="4" placeholder="Business Details"></textarea>
+                            <textarea name="businessDetails" class="form-control" rows="4" placeholder="Business Details"></textarea>
                         </div>
+                        <!-- Image Upload Input -->
+                        <div class="mb-3">
+                            <label class="form-label">Upload Profile Image</label>
+                            <input type="file" class="form-control" accept="image/*">
+                        </div>
+                        
                         <button type="submit" class="btn btn-primary w-100">Submit Application</button>
                     </form>
                 </div>
             </div>
         </div>
     </section>
-
-
+    
     <!-- Footer -->
     <footer class="py-5">
         <div class="container">
@@ -673,72 +681,90 @@
 
 
 <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const form = document.querySelector('#register form');
-      
-      form.addEventListener('submit', async (e) => {
-        e.preventDefault();
+        document.addEventListener('DOMContentLoaded', () => {
+        const form = document.querySelector('#register form');
         
-        // Get form data (using your exact HTML structure)
-        const inputs = form.querySelectorAll('input, textarea');
-        const formData = {
-          memberName: inputs[0].value.trim(),
-          email: inputs[1].value.trim(),
-          phone: inputs[2].value.trim(),
-          businessDetails: inputs[3].value.trim()
-        };
-    
-        // Show loading
-        const swal = Swal.fire({
-          title: 'Processing...',
-          allowOutsideClick: false,
-          didOpen: () => Swal.showLoading()
-        });
-    
-        //submit the form data
-          
-          const API_URL = window.location.hostname === 'localhost' 
-          ? 'http://localhost:3000/register' 
-          : 'https://nmta.onrender.com/register';
-        
-        const fetchPromise = fetch(API_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData)
-        });
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
 
-        
-        // Race between fetch and timeout
-        const timeoutPromise = new Promise((_, reject) => 
-          setTimeout(() => reject('Request timed out'), 5000)
-        );
-    
-        const response = await Promise.race([fetchPromise, timeoutPromise])
-          .catch(() => null);
-    
-        // Close loading
-        swal.close();
-    
-        // Determine success (consider any response as success since data saves)
-        if (response) {
-          await Swal.fire({
-            icon: 'success',
-            title: 'Success',
-            text: 'Your registration was received',
-            confirmButtonText: 'OK'
-          });
-          form.reset();
-        } else {
-          await Swal.fire({
-            icon: 'warning',
-            title: 'Submission Received',
-            text: 'Your application was submitted (confirmation pending)',
-            confirmButtonText: 'OK'
-          });
-          form.reset();
-        }
-      });
+            // Get form data
+            const inputs = form.querySelectorAll('input, textarea');
+            const formData = new FormData(); // Use FormData to handle file uploads
+            formData.append('memberName', inputs[0].value.trim());
+            formData.append('email', inputs[1].value.trim());
+            formData.append('phone', inputs[2].value.trim());
+            formData.append('businessDetails', inputs[3].value.trim());
+
+            // Get file input
+            const fileInput = form.querySelector('input[type="file"]');
+            if (fileInput && fileInput.files.length > 0) {
+                formData.append('profileImage', fileInput.files[0]); // Attach image
+            }
+
+            console.log('🚀 Sending Data:', Object.fromEntries(formData.entries())); // Debugging log
+
+            // Show loading
+            const swalInstance = Swal.fire({
+                title: 'Processing...',
+                allowOutsideClick: false,
+                didOpen: () => Swal.showLoading()
+            });
+
+            // API URL
+            const API_URL = window.location.hostname === 'localhost'
+                ? 'http://localhost:3000/register'
+                : 'https://nmta.onrender.com/register';
+
+            try {
+                // Send request
+                const fetchPromise = fetch(API_URL, {
+                    method: 'POST',
+                    body: formData // No need for Content-Type, browser handles it
+                });
+
+                // Timeout mechanism
+                const timeoutPromise = new Promise((_, reject) =>
+                    setTimeout(() => reject(new Error('Request timed out')), 5000)
+                );
+
+                const response = await Promise.race([fetchPromise, timeoutPromise]);
+
+                // Close loading
+                swalInstance.close();
+
+                if (!response.ok) {
+                    throw new Error(`Server Error: ${response.status}`);
+                }
+
+                const result = await response.json();
+                console.log('✅ Server Response:', result);
+
+                // Show success message
+                await Swal.fire({
+                    icon: 'success',
+                    title: 'Success',
+                    text: 'Your registration was received',
+                    confirmButtonText: 'OK'
+                });
+
+                form.reset();
+            } catch (error) {
+                console.error('❌ Error:', error.message);
+
+                // Close loading before showing an error message
+                swalInstance.close();
+
+                await Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: error.message || 'Something went wrong',
+                    confirmButtonText: 'OK'
+                });
+            }
+        });
     });
-    </script>
+
+   </script>
+    
 </body>
 </html>
