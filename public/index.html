@@ -12,7 +12,6 @@
     <!-- Add in head section -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bootstrap-4/bootstrap-4.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css">
     <link rel="stylesheet" href="styles.css">
     
     <link rel="icon" type="image/png" href="images/nmta_logo.png">
@@ -331,7 +330,7 @@
                     <div class="executive-column">
                         <div class="executive-card">
                             <div class="executive-image">
-                                <img src="images/member.png" alt="Chairperson">
+                                <img src="images/tresurer-II.png" alt="Chairperson">
                                 <div class="role-badge">treasurer-II</div>
                             </div>
                             <div class="executive-details">
@@ -399,7 +398,7 @@
     <section id="members" class="section-padding">
         <div class="container">
             <div class="section-header mb-5">
-                <h2 class="display-5 fw-bold text-center mb-3">Our Esteemed Members</h2>
+                <h2 class="display-5 fw-bold text-center mb-3">Advisors to NMTA</h2>
                 <p class="text-center text-muted">Driving New Market's Commercial Excellence</p>
             </div>
     
@@ -693,37 +692,42 @@
         </div>
     </section>
 
-    <!-- Registration Section -->
-    <section id="register" class="section-padding">
+    <section id="register" class="section-padding bg-light py-5">
         <div class="container">
-            <h2 class="text-center mb-5">Member Registration</h2>
-            <div class="row justify-content-center">
-                <div class="col-md-6">
-                    <form id="registrationForm" enctype="multipart/form-data">
-                        <div class="mb-3">
-                            <input type="text" name="memberName" class="form-control" placeholder="Full Name" required maxlength="50">
-                        </div>
-                        <div class="mb-3">
-                            <input type="email" name="email" class="form-control" placeholder="Email" required maxlength="150">
-                        </div>
-                        <div class="mb-3">
-                            <input type="tel" name="phone" class="form-control" placeholder="Phone Number" required maxlength="10">
-                        </div>
-                        <div class="mb-3">
-                            <textarea name="businessDetails" class="form-control" rows="4" placeholder="Business Details"></textarea>
-                        </div>
-                        <!-- Image Upload Input -->
-                        <div class="mb-3">
-                            <label class="form-label">Upload Profile Image</label>
-                            <input type="file" class="form-control" accept="image/*">
-                        </div>
-                        
-                        <button type="submit" class="btn btn-primary w-100">Submit Application</button>
-                    </form>
+          <h2 class="text-center mb-5">Member Registration</h2>
+          <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+              <div class="card shadow rounded-4">
+                <div class="card-body p-4">
+                  <form id="registrationForm" enctype="multipart/form-data">
+                    <div class="mb-3 input-group">
+                      <span class="input-group-text"><i class="fas fa-user"></i></span>
+                      <input type="text" name="memberName" class="form-control" placeholder="Full Name" required maxlength="50">
+                    </div>
+                    <div class="mb-3 input-group">
+                      <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                      <input type="email" name="email" class="form-control" placeholder="Email" required maxlength="150">
+                    </div>
+                    <div class="mb-3 input-group">
+                      <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                      <input type="tel" name="phone" class="form-control" placeholder="Phone Number" required maxlength="10" pattern="\d{10}">
+                    </div>
+                    <div class="mb-3">
+                      <textarea name="businessDetails" class="form-control" rows="4" placeholder="Business Details"></textarea>
+                    </div>
+                    <div class="mb-3">
+                      <label class="form-label">Upload Profile Image</label>
+                      <input type="file" name="profileImage" class="form-control" accept="image/*">
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Submit Application</button>
+                  </form>
                 </div>
+              </div>
             </div>
+          </div>
         </div>
-    </section>
+      </section>
+      
     
     <!-- Footer -->
     <footer class="py-5">
@@ -731,7 +735,7 @@
             <div class="row">
                 <div class="col-md-4">
                     <h5>Contact Us</h5>
-                    <p>New Market, Pakyong<br>Email: info@nmta.org<br>Phone: +91 123 456 7890</p>
+                    <p>New Market, Pakyong<br>Email: info@nmta.org<br>Phone: +91 xxxxxxxxxx</p>
                 </div>
                 <div class="col-md-4">
                     <h5>Quick Links</h5>
@@ -739,6 +743,7 @@
                         <li><a href="#about" class="text-white">About Us</a></li>
                         <li><a href="#members" class="text-white">Members</a></li>
                         <li><a href="#register" class="text-white">Register</a></li>
+                        <li><a href="#" onclick="handlePdfClick(event)" class="text-white">Constitution of NMTA</a></li>
                     </ul>
                 </div>
                 <div class="col-md-4">
@@ -752,7 +757,7 @@
             </div>
             <div class="text-center mt-4">
                 <p>&copy; 2025 NMTA. All rights reserved.</p>
-                <p>Developed at Computech IT by team (RBPS).</p>
+                <p>Developed at Computech IT, by (RBPS) team.</p>
             </div>
         </div>
     </footer>
@@ -761,21 +766,10 @@
 
     <!-- Bootstrap JS and dependencies -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Font Awesome -->
-    <script src="https://kit.fontawesome.com/your-font-awesome-kit.js"></script>
-
-    <!-- Lightbox -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
+   
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-<script>
-    lightbox.option({
-        'resizeDuration': 200,
-        'wrapAround': true,
-        'alwaysShowNavOnTouchDevices': true,
-        'positionFromTop': 100
-    });
-</script>
+
 <script>
     // Add this JavaScript
     document.addEventListener('DOMContentLoaded', function() {
@@ -876,7 +870,7 @@
                 await Swal.fire({
                     icon: 'success',
                     title: 'Success',
-                    text: 'Your registration was received',
+                    text: 'Thank you for joining us! We’ve received your registration and will be in touch soon..',
                     confirmButtonText: 'OK'
                 });
     
@@ -895,6 +889,29 @@
         });
     });
     </script>
+
+    <script>
+        function handlePdfClick(event) {
+          event.preventDefault(); // prevent default link behavior
+      
+          const userChoice = confirm("Do you want to download the PDF?\nClick 'Cancel' to open in a new tab.");
+      
+          const pdfPath = "images/constitution_of_NMTA.pdf";
+      
+          if (userChoice) {
+            // Download the file
+            const link = document.createElement("a");
+            link.href = pdfPath;
+            link.download = "NMTA_Constitution.pdf"; // optional custom filename
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+          } else {
+            // Open in new tab
+            window.open(pdfPath, "_blank");
+          }
+        }
+      </script>
     
     
 </body>

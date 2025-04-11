@@ -1,0 +1,218 @@
+
+/* Custom CSS for NMTA Website */
+:root {
+--primary-color: #2A5C82;    /* Professional blue */
+--secondary-color: #4CAF50;  /* Fresh green */
+--accent-color: #FFC107;     /* Golden yellow */
+--dark-color: #2d2d2d;
+--light-color: #f8f9fa;
+}
+
+/* Typography */
+body {
+font-family: 'Poppins', sans-serif;
+color: var(--dark-color);
+line-height: 1.7;
+}
+
+h1, h2, h3, h4, h5, h6 {
+font-weight: 700;
+letter-spacing: 0.5px;
+}
+
+/* Navbar Enhancements */
+.navbar {
+background: var(--primary-color) !important;
+box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+padding: 1rem 0;
+}
+
+.navbar-brand {
+font-weight: 700;
+font-size: 1.5rem;
+letter-spacing: 1px;
+}
+
+.nav-link {
+color: rgba(255,255,255,0.9) !important;
+font-weight: 500;
+margin: 0 1rem;
+position: relative;
+}
+
+.nav-link::after {
+content: '';
+position: absolute;
+width: 0;
+height: 2px;
+background: var(--accent-color);
+bottom: 0;
+left: 0;
+transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+width: 100%;
+}
+
+/* members data table */
+/* CSS Styles */
+
+.members-section {
+    background: white;
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+
+.section-header {
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ margin-bottom: 1.5rem;
+}
+
+.section-title {
+ color: #2c3e50;
+ font-size: 2rem;
+}
+
+.print-btn {
+ background: #4CAF50;
+ color: white;
+ border: none;
+ padding: 0.8rem 1.5rem;
+ border-radius: 5px;
+ cursor: pointer;
+ transition: background 0.3s;
+ display: flex;
+ align-items: center;
+ gap: 0.5rem;
+}
+
+.print-btn:hover {
+ background: #45a049;
+}
+/* Members Table Styles */
+.members-table {
+width: 100%;
+border-collapse: collapse;
+margin: 2rem 0;
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+background: white;
+border-radius: 8px;
+overflow: hidden;
+}
+.members-table tr {
+transition: background-color 0.2s ease-in-out;
+}
+
+.members-table th {
+background-color: #f8f9fa;
+color: #495057;
+font-weight: 600;
+padding: 1rem;
+text-align: left;
+border-bottom: 2px solid #e9ecef;
+}
+
+.members-table td {
+padding: 1rem;
+border-bottom: 1px solid #e9ecef;
+vertical-align: middle;
+}
+
+/* Collapse Arrow Styling */
+.collapse-arrow {
+cursor: pointer;
+transition: transform 0.2s ease;
+display: inline-block;
+width: 24px;
+height: 24px;
+text-align: center;
+}
+
+.collapse-arrow::after {
+content: "▶";
+color: #6c757d;
+transition: transform 0.2s ease;
+}
+
+.collapse-arrow.active::after {
+content: "▼";
+color: #4a90e2;
+}
+
+/* Hover Effects */
+.members-table tr:hover td {
+background-color: #f8f9fa;
+}
+
+/* Loading State */
+.loading-spinner {
+display: inline-block;
+width: 1.5rem;
+height: 1.5rem;
+border: 3px solid #f3f3f3;
+border-radius: 50%;
+border-top: 3px solid #4a90e2;
+animation: spin 1s linear infinite;
+margin-right: 0.5rem;
+}
+
+#loading td {
+text-align: center;
+padding: 2rem;
+color: #6c757d;
+}
+
+@keyframes spin {
+0% { transform: rotate(0deg); }
+100% { transform: rotate(360deg); }
+}
+
+/* Details Row */
+.details-row {
+background-color: #f8fafc;
+}
+
+.details-content {
+padding: 1.5rem;
+border-top: 1px solid #e9ecef;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+.members-table {
+ display: block;
+ overflow-x: auto;
+}
+
+.members-table th:nth-child(4),
+.members-table td:nth-child(4) {
+ min-width: 120px;
+}
+}
+
+/* Error State */
+.error-row td {
+color: #dc3545;
+background-color: #fff5f5;
+text-align: center;
+padding: 1.5rem;
+}
+.profile-img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin: auto;
+}
+
+th.profile-header,
+td.profile-cell {
+  text-align: center;
+  vertical-align: middle;
+}
