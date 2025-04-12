@@ -1,0 +1,153 @@
+
+    /* Reset & Font */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(to right, #4facfe, #00f2fe);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+   /* sytle for login page */
+.login-container {
+    background: white;
+    padding: 2rem 2.5rem;
+    border-radius: 1rem;
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+  
+    /* 👇 THIS pushes it down below the navbar */
+    margin-top: 100px;
+  }
+  
+
+    .login-container h2 {
+      margin-bottom: 1.5rem;
+      color: #333;
+    }
+
+    .input-group {
+      margin-bottom: 1.2rem;
+      text-align: left;
+    }
+
+    .input-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: #555;
+      font-weight: 600;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 0.75rem;
+      border-radius: 0.5rem;
+      border: 1px solid #ccc;
+      transition: border-color 0.3s;
+    }
+
+    .input-group input:focus {
+      border-color: #4facfe;
+      outline: none;
+    }
+
+    button {
+      width: 100%;
+      padding: 0.75rem;
+      border: none;
+      border-radius: 0.5rem;
+      background: #4facfe;
+      color: white;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background: #00c6ff;
+    }
+
+    p {
+      margin-top: 1rem;
+      color: #333;
+    }
+
+    a {
+      color: #4facfe;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+    .input-group {
+        margin-bottom: 1.2rem;
+        text-align: left;
+      }
+      
+      .input-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        color: #555;
+        font-weight: 600;
+      }
+      
+      .input-icon {
+        display: flex;
+        align-items: center;
+        border: 1px solid #ccc;
+        border-radius: 0.5rem;
+        padding: 0 0.75rem;
+        background-color: white;
+      }
+      
+      .input-icon i {
+        color: #aaa;
+        margin-right: 0.5rem;
+      }
+      
+      .input-icon input {
+        border: none;
+        flex: 1;
+        padding: 0.75rem 0;
+        font-size: 1rem;
+      }
+      
+      .input-icon input:focus {
+        outline: none;
+      }
+      .toast {
+        visibility: hidden;
+        min-width: 250px;
+        background-color: #4CAF50; /* Green for success */
+        color: #fff;
+        text-align: center;
+        border-radius: 8px;
+        padding: 16px;
+        position: fixed;
+        z-index: 1000;
+        bottom: 30px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 16px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        transition: visibility 0s, opacity 0.5s ease;
+        opacity: 0;
+      }
+      
+      .toast.show {
+        visibility: visible;
+        opacity: 1;
+      }
+      

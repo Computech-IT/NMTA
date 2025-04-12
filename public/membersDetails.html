@@ -1,5 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+  <script>
+    fetch('/api/check-auth')
+      .then(response => {
+        if (!response.ok) {
+          window.location.href = '/login.html'; // redirect to login if not authorized
+        }
+      })
+      .catch(err => {
+        console.error('Auth check failed:', err);
+        window.location.href = '/login.html';
+      });
+  </script>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -26,8 +38,10 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link" href="/index.html#home">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Logout</a></li>
-                </ul>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#" id="logoutBtn">Logout</a>
+                    </li>
+                  </ul>
             </div>
         </div>
     </nav>
@@ -255,7 +269,32 @@
               `;
               document.head.appendChild(printStyles);
             });
-          </script>
+  </script>
+
+
+<script>
+  // Add event listener to logout button
+  document.getElementById('logoutBtn').addEventListener('click', async (event) => {
+    event.preventDefault();  // Prevent the default link behavior
+
+    try {
+      // Send logout request to the server
+      const response = await fetch('http://localhost:3000/logout', {
+        method: 'GET',
+        credentials: 'same-origin', // To ensure the session cookie is sent with the request
+      });
+
+      if (response.ok) {
+        // Redirect to the index page after logout
+        window.location.href = '/index.html';
+      } else {
+        console.error('Logout failed');
+      }
+    } catch (error) {
+      console.error('Error during logout:', error);
+    }
+  });
+</script>
           
 </body>
 </html>
