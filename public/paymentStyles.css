@@ -1,0 +1,99 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(135deg, #ffa726, #212121);
+    color: #333;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .payment-container {
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .payment-card {
+    background: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    max-width: 600px;
+    width: 100%;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    text-align: center;
+  }
+  
+  .payment-card h1 {
+    color: #2e7d32;
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+  }
+  
+  .subtext {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 25px;
+  }
+  
+  .payment-options h2 {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  .option {
+    margin-bottom: 30px;
+    padding: 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    background-color: #fafafa;
+  }
+  
+  .option img {
+    width: 60px;
+    height: auto;
+    margin-bottom: 10px;
+  }
+  
+  .option p {
+    margin-bottom: 10px;
+    font-weight: 500;
+  }
+  
+  .pay-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #ff9800;
+    color: #fff;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background 0.3s ease;
+  }
+  
+  .pay-btn:hover {
+    background-color: #fb8c00;
+  }
+  
+  .bank-details {
+    text-align: left;
+    font-size: 0.95rem;
+    color: #444;
+    margin-top: 10px;
+  }
+  
+  .note {
+    font-size: 0.85rem;
+    color: #757575;
+    margin-top: 20px;
+    font-style: italic;
+  }
+  

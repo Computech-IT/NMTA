@@ -60,22 +60,30 @@ app.post('/register', upload.single('profileImage'), async (req, res) => {
         if (!memberName || !email || !phone) {
             return res.status(400).json({ error: 'Name, email, and phone are required' });
         }
-
+        
         const sql = `INSERT INTO members (memberName, email, phone, businessDetails, profileImage) VALUES (?, ?, ?, ?, ?)`;
         const params = [memberName, email, phone, businessDetails || null, profileImage];
 
-        const result = await dbRun(sql, params);
-
+        const result = await new Promise((resolve, reject) => {
+            db.run(sql, params, function (err) {
+                if (err) reject(err);
+                else resolve(this); // 'this' contains 'lastID'
+            });
+        });
+        
         res.status(200).json({
             message: 'Registration successful',
             memberId: result.lastID,
             profileImage: profileImage
         });
-
+        
     } catch (error) {
-        console.error('Registration error:', error);
-        res.status(500).json({ error: 'Database operation failed' });
+        console.error('Registration error:', error.message); // logs message
+        console.error(error); // logs full stack
+        res.status(500).json({ error: 'Database operation failed', details: error.message });
     }
+    
+    
 });
 
 // =========================

@@ -867,12 +867,8 @@
                 const result = await response.json();
                 console.log('✅ Server Response:', result);
     
-                await Swal.fire({
-                    icon: 'success',
-                    title: 'Success',
-                    text: 'Thank you for joining us! We’ve received your registration and will be in touch soon..',
-                    confirmButtonText: 'OK'
-                });
+                window.location.href = '/payment.html';
+
     
                 form.reset();
             } catch (error) {
@@ -888,7 +884,7 @@
             }
         });
     });
-    </script>
+</script>
 
     <script>
         function handlePdfClick(event) {
