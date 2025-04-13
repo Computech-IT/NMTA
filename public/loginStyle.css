@@ -155,12 +155,13 @@ visibility: visible;
 opacity: 1;
 }
 
+
 /* for NMTA logo */
 
 .nmta-logo{
-font-size: 36px;
+font-size: 30px;
 font-weight: 600;
-text-align: center;
+
 letter-spacing: 2px;
 background: linear-gradient(135deg, orange, black);
 
