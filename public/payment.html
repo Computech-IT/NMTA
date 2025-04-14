@@ -1,41 +1,79 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>NMTA Payment</title>
-  <link rel="stylesheet" href="paymentStyles.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NMTA Membership Payment</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="paymentStyles.css">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Add in head section -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bootstrap-4/bootstrap-4.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/png" href="images/nmta_logo.png">
+
+    
 </head>
 <body>
-  <div class="payment-container">
-    <div class="payment-card">
-      <h1>🎉 Registration Successful!</h1>
-      <p class="subtext">Thank you for registering with <strong>NMTA</strong>. Please proceed with the membership payment to complete the process.</p>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">click here to go to NMTA</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+               
+            </div>
+        </div>
+    </nav>
 
-      <div class="payment-options">
-        <h2>Choose a Payment Method:</h2>
-
-        <div class="option upi">
-          <img src="images/sampleQR.png" alt="UPI" />
-          <p>Pay via UPI id / QR Code</p>
-          <p>upi id: cipkg@sbi</p>
+    <div class="payment-container">
+        <div class="header">
+            <h1>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+                Registration Successful!
+            </h1>
+            <p class="subtext">
+                Thank you for joining the NMTA community. Complete your membership by making a secure payment using one of the methods below.
+            </p>
         </div>
 
-        <div class="option bank">
-          <img src="images/bank_logo.png" alt="Bank Transfer" />
-          <p>Bank Transfer</p>
-          <div class="bank-details">
-            <p><strong>Account Name:</strong> NMTA</p>
-            <p><strong>Account No:</strong> 1234567890</p>
-            <p><strong>IFSC:</strong> HDFC0001234</p>
-            <p><strong>Bank:</strong> HDFC Bank</p>
-          </div>
-        </div>
-      </div>
+        <div class="payment-options">
+            <div class="option upi">
+                <h3>UPI Payment</h3>
+                <div class="badge" style="background: #ECFDF5; color: #065F46;">Instant Processing</div>
+                <img src="images/sampleQR.png" alt="UPI QR Code">
+                <div class="upi-id">cipkg@sbi</div>
+                <p style="color: #64748b; font-size: 0.9rem;">Scan QR code or send payment to UPI ID</p>
+            </div>
 
-      <p class="note">⚠️ After payment, kindly email or whatsapp the screenshot or transaction reference to <strong>nmta@email.com, +91-876798789</strong></p>
+            <div class="option bank">
+                <h3>Bank Transfer</h3>
+                <div class="badge" style="background: #EFF6FF; color: #1D4ED8;">1-2 Business Days</div>
+                <div class="bank-details">
+                    <p><strong>Account Name:</strong> NMTA</p>
+                    <p><strong>Account No:</strong> 1234567890</p>
+                    <p><strong>IFSC Code:</strong> HDFC0001234</p>
+                    <p><strong>Bank:</strong> HDFC Bank</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="note">
+            <strong>Important:</strong> After payment, please share your transaction confirmation via:
+            <div style="margin-top: 0.5rem;">
+                <a href="mailto:nmta@email.com" style="color: #854d0e; text-decoration: underline;">Email</a> or 
+                <a href="https://wa.me/91876798789" style="color: #854d0e; text-decoration: underline;">WhatsApp</a>
+            </div>
+        </div>
     </div>
-  </div>
 </body>
 </html>

@@ -1,99 +1,134 @@
+
+:root {
+--primary: #2563eb;
+--success: #22c55e;
+--background: #f8fafc;
+--text: #1e293b;
+}
+
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  body {
-    font-family: 'Inter', sans-serif;
-    background: linear-gradient(135deg, #ffa726, #212121);
-    color: #333;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .payment-container {
-    width: 100%;
-    padding: 20px;
-    display: flex;
-    justify-content: center;
-  }
-  
-  .payment-card {
-    background: #fff;
-    padding: 30px;
-    border-radius: 12px;
-    max-width: 600px;
-    width: 100%;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-    text-align: center;
-  }
-  
-  .payment-card h1 {
-    color: #2e7d32;
-    font-size: 1.8rem;
-    margin-bottom: 10px;
-  }
-  
-  .subtext {
-    font-size: 1rem;
-    color: #555;
-    margin-bottom: 25px;
-  }
-  
-  .payment-options h2 {
-    font-size: 1.2rem;
-    margin-bottom: 20px;
-    color: #333;
-  }
-  
-  .option {
-    margin-bottom: 30px;
-    padding: 15px;
-    border: 1px solid #e0e0e0;
-    border-radius: 10px;
-    background-color: #fafafa;
-  }
-  
-  .option img {
-    width: 60px;
-    height: auto;
-    margin-bottom: 10px;
-  }
-  
-  .option p {
-    margin-bottom: 10px;
-    font-weight: 500;
-  }
-  
-  .pay-btn {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #ff9800;
-    color: #fff;
-    border-radius: 6px;
-    text-decoration: none;
-    font-weight: bold;
-    transition: background 0.3s ease;
-  }
-  
-  .pay-btn:hover {
-    background-color: #fb8c00;
-  }
-  
-  .bank-details {
-    text-align: left;
-    font-size: 0.95rem;
-    color: #444;
-    margin-top: 10px;
-  }
-  
-  .note {
-    font-size: 0.85rem;
-    color: #757575;
-    margin-top: 20px;
-    font-style: italic;
-  }
-  
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+font-family: 'Inter', sans-serif;
+}
+
+body {
+background: var(--background);
+min-height: 100vh;
+display: flex;
+justify-content: center;
+align-items: center;
+padding: 1rem;
+}
+
+.payment-container {
+max-width: 800px;
+width: 100%;
+background: white;
+border-radius: 1rem;
+box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+padding: 2rem;
+margin-top:100px;
+}
+
+.header {
+text-align: center;
+margin-bottom: 2rem;
+}
+
+.header h1 {
+color: var(--success);
+font-size: 2rem;
+margin-bottom: 1rem;
+display: flex;
+align-items: center;
+justify-content: center;
+gap: 0.5rem;
+}
+
+.subtext {
+color: #64748b;
+line-height: 1.6;
+max-width: 600px;
+margin: 0 auto;
+}
+
+.payment-options {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+gap: 2rem;
+margin: 2rem 0;
+}
+
+.option {
+background: #f1f5f9;
+border-radius: 0.75rem;
+padding: 1.5rem;
+transition: transform 0.2s ease;
+border: 1px solid #e2e8f0;
+}
+
+.option:hover {
+transform: translateY(-2px);
+}
+
+.option img {
+width: 100%;
+max-width: 200px;
+margin: 1rem auto;
+display: block;
+border-radius: 0.5rem;
+}
+
+.option h3 {
+color: var(--text);
+margin-bottom: 1rem;
+font-size: 1.25rem;
+}
+
+.bank-details {
+background: white;
+padding: 1rem;
+border-radius: 0.5rem;
+margin-top: 1rem;
+}
+
+.bank-details p {
+margin: 0.5rem 0;
+color: #475569;
+font-size: 0.9rem;
+}
+
+.note {
+background: #fffbeb;
+padding: 1rem;
+border-radius: 0.5rem;
+border: 1px solid #fde047;
+color: #854d0e;
+margin-top: 2rem;
+font-size: 0.9rem;
+}
+
+.badge {
+display: inline-block;
+padding: 0.25rem 0.75rem;
+border-radius: 999px;
+font-weight: 500;
+font-size: 0.8rem;
+}
+
+.upi-id {
+background: white;
+padding: 0.5rem 1rem;
+border-radius: 0.5rem;
+font-family: monospace;
+margin: 1rem 0;
+display: inline-block;
+}
+
+@media (max-width: 768px) {
+.payment-options {
+grid-template-columns: 1fr;
+}
+}
